@@ -69,6 +69,10 @@ In your root folder where the repository is cloned, run the following commands:
  - Starting the fake DB JsonServer: `npm run start:server` 
  - Open a new terminal and type: `npm run start`. This will establish the socket connection 
 
+### **Running the frontend**
+In your root folder where the repository is cloned, cd into client and run the following commands:
+ - `npm install`
+ - Starting the client: `npm run start` 
 
 # Available Socket Events
 Below you will find a list of available events, that might be useful during your development.
