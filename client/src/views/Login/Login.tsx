@@ -55,7 +55,7 @@ const InputLabel = styled.label`
 const UsernameInput = styled.input`
   height: 2.375rem;
   padding: 4px 0 5px 6px;
-  font-family: Nunito !important;
+  font-family: Nunito;
   margin-bottom: 0.75rem;
   margin-right: 0.5rem;
   font-weight: 400;

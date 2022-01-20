@@ -1,3 +1,4 @@
+import { Message, ActiveRoom } from '../../utils/types';
 import {
   ACTIVE_ROOM_REQUEST,
   ACTIVE_ROOM_SUCCESS,
@@ -15,18 +16,42 @@ const initialState = {
   isOver: false,
   turn: null,
   currentNumber: null,
+  previousNumber: null,
   ready: false,
   loading: false,
   error: null,
 };
 
-type Action = { 
-    type: string;
-    payload?: any;
-    error?: any;
-}
+type Action = {
+  type: string;
+  payload?: any;
+  error?: any;
+};
 
-export default function activeRoomReducer(state = initialState, action: Action) {
+const processMessage = (message: Message, state: ActiveRoom) => {
+  const { number }: any = message;
+
+  if (!state.previousNumber) {
+    message.previousNumber = number;
+    return {
+      messages: [...state.messages, message],
+      previousNumber: number,
+    };
+  } else {
+    message.previousNumber = state.messages[state.messages.length - 1].number;
+    return {
+      messages: [...state.messages, message],
+      previousNumber: message.isCorrectResult
+        ? number
+        : state.messages[state.messages.length - 1].number,
+    };
+  }
+};
+
+export default function activeRoomReducer(
+  state = initialState,
+  action: Action,
+) {
   switch (action.type) {
     case ACTIVE_ROOM_REQUEST:
       return { ...state, loading: true, error: null };
@@ -37,7 +62,8 @@ export default function activeRoomReducer(state = initialState, action: Action) 
         ...state,
         isOver: action.payload.isOver,
         winner: action.payload.user,
-         currentNumber: null,
+        currentNumber: null,
+        previousNumber: null,
         turn: null,
         ready: false,
       };
@@ -48,6 +74,7 @@ export default function activeRoomReducer(state = initialState, action: Action) 
         ...state,
         room: action.payload.room,
         currentNumber: null,
+        previousNumber: null,
         turn: null,
         messages: [],
         loading: false,
@@ -55,10 +82,11 @@ export default function activeRoomReducer(state = initialState, action: Action) 
         error: null,
       };
     case ADD_NEW_OUTPUT:
+      const messageObject = processMessage(action.payload.message, state);
       return {
         ...state,
+        ...messageObject,
         currentNumber: action.payload.currentNumber,
-        messages: [...state.messages, action.payload.message],
         loading: false,
         isOver: false,
         error: null,

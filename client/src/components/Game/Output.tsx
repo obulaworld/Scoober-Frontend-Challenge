@@ -16,7 +16,7 @@ const OutputContainer = styled.div`
   width: 198px;
   height: 32px;
 
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

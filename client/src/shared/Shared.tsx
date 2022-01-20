@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SideBartext = styled.span`
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -22,7 +22,7 @@ export const SelectionContainer = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;

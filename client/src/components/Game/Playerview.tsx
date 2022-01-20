@@ -24,10 +24,26 @@ const OutputContainer = styled.div`
 `;
 
 interface IPlayerviewProps {
-    message: Message;
+  message: Message;
+  index: number;
+}
+
+const getPreviousNumber = (message: Message, index: number) => {
+  if (!message.isCorrectResult) {
+    return message.number;
   }
 
-function Playerview({ message }: IPlayerviewProps): ReactElement {
+  if (message.isCorrectResult) {
+    return (
+      3 * Number(message?.number) +
+      (Math.sign(Number(message.selectedNumber)) === -1
+        ? Math.abs(Number(message.selectedNumber))
+        : Number(message.selectedNumber))
+    );
+  }
+};
+
+function Playerview({ message, index }: IPlayerviewProps): ReactElement {
   const renderMessage = (message: Message) => {
     if (message.isFirst) {
       return <Output text={message.number} />;
@@ -40,12 +56,7 @@ function Playerview({ message }: IPlayerviewProps): ReactElement {
             number={Number(message.selectedNumber)}
           />
           <Output
-            text={`[ ( ${message.selectedNumber} + ${
-              3 * Number(message?.number) +
-              (Math.sign(Number(message.selectedNumber)) === -1
-                ? Math.abs(Number(message.selectedNumber))
-                : Number(message.selectedNumber))
-            } )  / 3 ] = ${message.number}  `}
+            text={`[ ( ${message.selectedNumber} + ${message.previousNumber} )  / 3 ] = ${message.number}  `}
           />
           <Output text={message.number} />
         </OutputContainer>

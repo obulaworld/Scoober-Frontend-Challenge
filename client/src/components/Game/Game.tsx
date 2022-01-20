@@ -33,7 +33,6 @@ const selectUser = (state: State) => state.user?.user?.user;
 const selectSocketId = (state: State) => state.user?.user?.socketId;
 const selectTurn = (state: State) => state.activeRoom?.turn;
 const selectCurrentNumber = (state: State) => state.activeRoom?.currentNumber;
-const selectState = (state: State) => state;
 
 const GameContainer = styled.div`
   width: 100%;
@@ -50,7 +49,7 @@ const Logo = styled.img`
 `;
 
 const OverText = styled.span`
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: bold;
   font-size: 41px;
@@ -91,7 +90,7 @@ const NewGamebutton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
@@ -132,13 +131,10 @@ interface IGamePops {
 function Game({ socket, activeRoom }: IGamePops): ReactElement {
   const user = useSelector(selectUser);
   const turn = useSelector(selectTurn);
-  const state = useSelector(selectState);
   const currentNumber = useSelector(selectCurrentNumber);
   const socketId = useSelector(selectSocketId);
   const dispatch = useDispatch();
   const { messages } = activeRoom;
-
-  console.log(state, 'state');
 
   const scrollToBottom = (messages: Message[]) => {
     if (messages?.length && messages.length > 4) {
@@ -213,13 +209,13 @@ function Game({ socket, activeRoom }: IGamePops): ReactElement {
     });
   };
 
-  const renderMessageView = (message: Message) => {
+  const renderMessageView = (message: Message, index: number) => {
     if (!message.user) {
-      return <NeutralView message={message} />;
+      return <NeutralView key={index} message={message} />;
     } else if (message.user && message.user === user) {
-      return <Playerview message={message} />;
+      return <Playerview key={index} message={message} index={index} />;
     } else {
-      return <Opponentview message={message} />;
+      return <Opponentview key={index} message={message} />;
     }
   };
 
@@ -247,8 +243,8 @@ function Game({ socket, activeRoom }: IGamePops): ReactElement {
       <GameContainer>
         {activeRoom?.room ? (
           <>
-            {activeRoom?.messages.map((message: Message) =>
-              renderMessageView(message),
+            {activeRoom?.messages.map((message: Message, index: number) =>
+              renderMessageView(message, index),
             )}
           </>
         ) : (

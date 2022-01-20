@@ -22,8 +22,8 @@ function Sidebar({ socket, rooms }: ISidebarProps): ReactElement {
   return (
     <SidebarContainer>
       <SideBartext>Choose you game room</SideBartext>
-      {rooms?.rooms.map((room: RoomType) => (
-        <Sidemenu socket={socket} room={room} />
+      {rooms?.rooms.map((room: RoomType, index: number) => (
+        <Sidemenu key={index} socket={socket} room={room} />
       ))}
     </SidebarContainer>
   );

@@ -23,7 +23,7 @@ const Logo = styled.img`
 `;
 
 const NavBarHeader = styled.span`
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -32,7 +32,7 @@ const NavBarHeader = styled.span`
 `;
 
 const NavBarSubHeader = styled.span`
-  font-family: Takeaway Sans;
+  font-family: Nunito;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

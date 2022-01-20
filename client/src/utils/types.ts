@@ -11,6 +11,7 @@ export type Message = {
   user?: string;
   message?: string;
   room?: string;
+  previousNumber?: number | string | null | undefined;
 };
 
 export type ReadyState = {
@@ -23,15 +24,16 @@ export type GameOver = {
 };
 
 export type ActiveRoom = {
-  currentNumber: number;
+  currentNumber: number | null;
+  previousNumber: number | null;
   error: any;
-  isOver: false;
+  isOver: boolean;
   loading: boolean;
   messages: Message[];
   ready: boolean;
-  room: string;
-  turn: Turn;
-  winner: string;
+  room: string | null;
+  turn: Turn | null;
+  winner: string | null;
 };
 
 export type RoomType = {

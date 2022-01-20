@@ -40,12 +40,7 @@ function Opponentview({ message }: IOpponentviewProps): ReactElement {
             number={Number(message.selectedNumber)}
           />
           <Output
-            text={`[ ( ${message.selectedNumber} + ${
-              3 * Number(message?.number) +
-              (Math.sign(Number(message.selectedNumber)) === -1
-                ? Math.abs(Number(message.selectedNumber))
-                : Number(message.selectedNumber))
-            } )  / 3 ] = ${message.number}  `}
+            text={`[ ( ${message.selectedNumber} + ${message.previousNumber} )  / 3 ] = ${message.number}  `}
           />
           <Output text={message.number} />
         </OutputContainer>
